@@ -72,7 +72,6 @@ function addCollection() {
 
 function updateCollection() {
   let collectionName = document.getElementById("collection-name").value;
-  ;
   var restaturantIds = $(".restaurantCheckbox:checked")
     .map(function() {
       return $(this).val();
@@ -95,6 +94,12 @@ function cleanResultContainer() {
   document.getElementById("ResultContainer").innerHTML = "";
 }
 
+$("#inputSearch").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#searchRestaurant").click();
+    }
+});
+
 function activateView(type) {
   cleanResultContainer();
   switch (type) {
@@ -102,11 +107,16 @@ function activateView(type) {
       $("#ResultContainer").hide();
       $("#collection-section").show();
       $("#searchForm").hide();
+      $("#ResultNavigationContainer").hide();
       break;
     case "restaurant":
+      $("#collection-section").hide();
+      $("#ResultContainer").show();
+      $("#ResultNavigationContainer").hide();
     case "restaurants":
       $("#collection-section").hide();
       $("#ResultContainer").show();
+      $("#ResultNavigationContainer").show();
       break;
     default:
   }
